@@ -3,11 +3,8 @@
   "typhoonMemory": {},
   "currentStatus": {
     "hasTyphoon": "NO",
-    "target": "無",
-    "lat": "",
-    "lon": "",
-    "pressure": "",
-    "message": "🏡 目前洋面安全，雷達全天候留守台灣本島大地圖。"
+    "updatedAt": "2026/9/14 下午8:58:00",
+    "message": "🌊 當前洋面無活躍颱風，系統進入休眠待命。"
   },
   "radar5x5": {},
   "taiwanGrid": {
