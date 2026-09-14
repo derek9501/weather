@@ -2,9 +2,11 @@ name: Weather Cron Job
 
 on:
   schedule:
-    # 每 10 分鐘自動執行一次 (GitHub Actions 最小排程單位約為 5-10 分鐘)
     - cron: '*/10 * * * *'
   workflow_dispatch:
+
+permissions:
+  contents: write  # 允許寫入/提交檔案回 Repository
 
 jobs:
   run-weather-script:
@@ -25,7 +27,12 @@ jobs:
       - name: Run script
         env:
           OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
-          SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
-          GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
-          GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
         run: node index.js
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add weather_data.json
+          git commit -m "Auto-update weather data [skip ci]" || exit 0
+          git push
