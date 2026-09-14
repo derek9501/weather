@@ -30,6 +30,9 @@ function loadDatabase() {
 }
 
 function saveDatabase(db) {
+  // 強制刪除舊殘留的台灣網格欄位
+  delete db.taiwanGrid;
+
   // 1. 更新根目錄的 weather_data.json
   fs.writeFileSync(DATA_FILE, JSON.stringify(db, null, 2), 'utf8');
 
@@ -71,6 +74,7 @@ async function main() {
         updatedAt: cwaDataTime || "無發布資料",
         message: "🌊 當前洋面無活躍颱風或熱帶性低氣壓，系統進入休眠待命。"
       };
+      db.radar5x5 = {};
       saveDatabase(db);
       console.log("\n✅ [步驟 4/4] 狀態已更新並備份至 history 資料夾，任務順利結束。");
       return;
@@ -80,6 +84,7 @@ async function main() {
     console.log(`\n🚨 [步驟 3/4] 偵測到 ${activeTyphoons.length} 個活躍熱帶氣旋！開始進行 OpenWeather 5x5 精確定位...`);
 
     let typhoonResults = [];
+    let radar5x5Data = {};
 
     for (const typhoon of activeTyphoons) {
       console.log(`\n🔍 正在分析：【${typhoon.name}】...`);
@@ -90,6 +95,8 @@ async function main() {
       const gridCenterLon = Math.round(savedCoord.lon * 2) / 2;
 
       let collectedData = [];
+      let currentRadarGrids = {};
+
       for (let r = 2; r >= -2; r--) {
         for (let c = -2; c <= 2; c++) {
           let pLat = Number((gridCenterLat + (r * 0.5)).toFixed(1));
@@ -98,11 +105,15 @@ async function main() {
 
           if (weatherData) {
             collectedData.push({ lat: pLat, lon: pLon, pressure: weatherData.pressure, windSpeed: weatherData.windSpeed });
+            currentRadarGrids[`${pLat}_${pLon}`] = weatherData;
           } else {
             collectedData.push({ lat: pLat, lon: pLon, pressure: 1013, windSpeed: 0 });
+            currentRadarGrids[`${pLat}_${pLon}`] = { temp: null, pressure: 1013, weather: "無資料", windSpeed: 0, windDeg: 0, rain: 0, updatedAt: typhoon.cwaTime };
           }
         }
       }
+
+      radar5x5Data[typhoon.name] = currentRadarGrids;
 
       if (collectedData.length > 0) {
         let minPressure = Math.min(...collectedData.map(d => d.pressure));
@@ -116,7 +127,7 @@ async function main() {
         db.typhoonMemory[typhoon.name] = { lat: estLat, lon: estLon };
         
         typhoonResults.push({
-          time: typhoon.cwaTime, // 顯示該颱風在氣象署官方紀錄的定位時間
+          time: typhoon.cwaTime,
           name: typhoon.name,
           estLat, 
           estLon,
@@ -132,12 +143,14 @@ async function main() {
     db.currentStatus = {
       hasTyphoon: "YES",
       count: activeTyphoons.length,
-      updatedAt: cwaDataTime, // 使用氣象署最新發布的資料時間
+      updatedAt: cwaDataTime,
       typhoons: typhoonResults
     };
 
+    db.radar5x5 = radar5x5Data;
+
     saveDatabase(db);
-    console.log("\n✅ [步驟 4/4] 所有熱帶氣旋資料已成功寫入 history 資料夾！");
+    console.log("\n✅ [步驟 4/4] 所有颱風追蹤與 5x5 雷達網格資料已成功寫入！");
 
   } catch (err) {
     console.error("❌ 執行過程中發生未預期錯誤:", err);
@@ -152,8 +165,12 @@ async function fetchSingleOpenWeather(lat, lon) {
     const res = await axios.get(url);
     if (res.status === 200) {
       return {
+        temp: res.data.main ? res.data.main.temp : null,
         pressure: res.data.main ? Number(res.data.main.pressure) : 1013,
-        windSpeed: res.data.wind ? Number(res.data.wind.speed) : 0
+        weather: res.data.weather && res.data.weather[0] ? res.data.weather[0].description : "未知",
+        windSpeed: res.data.wind ? Number(res.data.wind.speed) : 0,
+        windDeg: res.data.wind ? Number(res.data.wind.deg) : 0,
+        rain: res.data.rain ? (res.data.rain['1h'] || res.data.rain['3h'] || 0) : 0
       };
     }
   } catch (e) {
@@ -162,7 +179,6 @@ async function fetchSingleOpenWeather(lat, lon) {
   return null;
 }
 
-// 格式化 ISO 時間字串為可讀格式 (例如：2026/9/14 下午9:11:17)
 function formatToTWTime(isoString) {
   if (!isoString) return "";
   const d = new Date(isoString);
@@ -195,11 +211,10 @@ async function fetchAllActiveTyphoons() {
       if (!fixList) continue;
       const latestFix = Array.isArray(fixList) ? fixList[fixList.length - 1] : fixList;
 
-      // 提取氣象署資料內的官方定位時間 (FixTime / DateTime)
       const rawFixTime = latestFix.FixTime || latestFix.DateTime || cyclone.AnalysisData?.IssueTime || records?.datasetInfo?.issueTime;
       const formattedFixTime = formatToTWTime(rawFixTime);
 
-      if (!cwaDataTime) cwaDataTime = formattedFixTime; // 設為整體更新時間
+      if (!cwaDataTime) cwaDataTime = formattedFixTime;
 
       const name = cyclone.CwaTyphoonName || cyclone.TyphoonName || (cyclone.CwaTdNo ? `熱帶低壓TD${cyclone.CwaTdNo}` : "未命名熱帶氣旋");
 
