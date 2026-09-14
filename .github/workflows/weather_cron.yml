@@ -1,0 +1,36 @@
+name: Taiwan Weather Cron Tracker
+
+on:
+  schedule:
+    # 每 15 分鐘自動執行一次 (UTC 時間)
+    - cron: '*/15 * * * *'
+  workflow_dispatch: # 支援在 GitHub 網頁上手動點擊按鈕執行
+
+jobs:
+  run-tracker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Weather Tracker
+        env:
+          CWA_AUTH_KEY: ${{ secrets.CWA_AUTH_KEY }}
+          OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
+        run: node index.js
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/weather_data.json
+          git status
+          git diff --staged --quiet || (git commit -m "chore: auto-update weather grid data [skip ci]" && git push)
