@@ -146,7 +146,10 @@ async function fetchAllActiveTyphoons() {
     const res = await axios.get(CWA_TYPHOON_TRACK_API);
     const parser = new XMLParser({ ignoreAttributes: false });
     const jsonObj = parser.parse(res.data);
-    let cyclones = jsonObj?.cwaopendata?.records?.TropicalCyclones?.TropicalCyclone;
+    
+    // 正確讀取 dataset.records.TropicalCyclone
+    const records = jsonObj?.dataset?.records || jsonObj?.records;
+    let cyclones = records?.TropicalCyclone;
 
     if (!cyclones) {
       console.log("ℹ️ 中央氣象署 API 回傳：當前無熱帶氣旋資料。");
