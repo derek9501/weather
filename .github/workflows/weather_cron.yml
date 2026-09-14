@@ -1,0 +1,28 @@
+name: Weather Cron Job
+
+on:
+  schedule:
+    # 這裡依據您的設定調整 Cron 時間（例如每天定時觸發）
+    - cron: '0 0 * * *'
+  workflow_dispatch: # 支援手動觸發
+
+jobs:
+  run-weather-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # 或您專案對應的 Node.js 版本
+
+      - name: Install dependencies
+        working-directory: ./weather-main
+        run: npm install
+
+      - name: Run script
+        working-directory: ./weather-main
+        run: node index.js
