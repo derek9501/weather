@@ -32,33 +32,33 @@ function saveDatabase(db) {
 // ==================== 核心主程式 ====================
 async function main() {
   try {
-    console.log("🚀 [步驟 1/4] 開始執行颱風追蹤程式...");
+    console.log("🚀 [步驟 1/4] 開始執行颱風/熱帶氣旋追蹤程式...");
     const db = loadDatabase();
     const currentTimeString = new Date().toLocaleString("zh-TW", { timeZone: "Asia/Taipei" });
     console.log(`⏰ 當前執行時間：${currentTimeString}`);
 
-    // 1. 向中央氣象署查詢目前所有活躍颱風
+    // 1. 向中央氣象署查詢目前所有活動中的熱帶氣旋
     console.log("\n📡 [步驟 2/4] 正在連線至中央氣象署 (CWA) 取得最新熱帶氣旋資料...");
     const activeTyphoons = await fetchAllActiveTyphoons();
 
-    // 2. 若完全沒有颱風
+    // 2. 若完全沒有颱風或熱帶低壓
     if (activeTyphoons.length === 0) {
-      console.log("🟢 檢查結果：目前洋面上沒有活躍的颱風！");
+      console.log("🟢 檢查結果：目前洋面上沒有活躍的熱帶氣旋！");
       db.currentStatus = {
         hasTyphoon: "NO",
         updatedAt: currentTimeString,
-        message: "🌊 當前洋面無活躍颱風，系統進入休眠待命。"
+        message: "🌊 當前洋面無活躍颱風或熱帶性低氣壓，系統進入休眠待命。"
       };
       saveDatabase(db);
       console.log("\n✅ [步驟 4/4] 狀態已更新至 weather_data.json，任務順利結束。");
       return;
     }
 
-    // 3. 逐一掃描所有活躍颱風並定位颱風眼
-    console.log(`\n🚨 [步驟 3/4] 偵測到 ${activeTyphoons.length} 個活躍颱風！開始進行 OpenWeather 5x5 近心點精確定位...`);
+    // 3. 逐一掃描所有活躍熱帶氣旋並進行近心點定位
+    console.log(`\n🚨 [步驟 3/4] 偵測到 ${activeTyphoons.length} 個活躍熱帶氣旋！開始進行 OpenWeather 5x5 精確定位...`);
 
     for (const typhoon of activeTyphoons) {
-      console.log(`\n🔍 正在分析颱風【${typhoon.name}】...`);
+      console.log(`\n🔍 正在分析：【${typhoon.name}】...`);
       console.log(`📍 氣象署官方預報位置：北緯 ${typhoon.lat}° / 東經 ${typhoon.lon}°（中心氣壓：${typhoon.officialPressure}）`);
 
       let savedCoord = db.typhoonMemory[typhoon.name] || { lat: typhoon.lat, lon: typhoon.lon };
@@ -102,8 +102,8 @@ async function main() {
           officialPos: `${typhoon.lat}N, ${typhoon.lon}E (${typhoon.officialPressure})`
         });
 
-        console.log(`🎯 颱風【${typhoon.name}】定位完成！`);
-        console.log(`🌀 推算新中心座標：北緯 ${estLat}° / 東經 ${estLon}°（最低氣壓：${eyeGrid.pressure} hPa）`);
+        console.log(`🎯 【${typhoon.name}】定位完成！`);
+        console.log(`🌀 推算最新中心座標：北緯 ${estLat}° / 東經 ${estLon}°（最低氣壓：${eyeGrid.pressure} hPa）`);
       }
     }
 
@@ -115,7 +115,7 @@ async function main() {
     };
 
     saveDatabase(db);
-    console.log("\n✅ [步驟 4/4] 所有颱風資料已成功寫入 weather_data.json！");
+    console.log("\n✅ [步驟 4/4] 所有熱帶氣旋資料已成功寫入 weather_data.json！");
 
   } catch (err) {
     console.error("❌ 執行過程中發生未預期錯誤:", err);
@@ -159,14 +159,18 @@ async function fetchAllActiveTyphoons() {
       const fixList = cyclone.AnalysisData?.Fix;
       if (!fixList) continue;
       const latestFix = Array.isArray(fixList) ? fixList[fixList.length - 1] : fixList;
+
+      // 判斷名稱優先順序：颱風中文名 > 颱風英文名 > 熱帶低壓TD編號 > 未命名
+      const name = cyclone.CwaTyphoonName || cyclone.TyphoonName || (cyclone.CwaTdNo ? `熱帶低壓TD${cyclone.CwaTdNo}` : "未命名熱帶氣旋");
+
       activeTyphoons.push({
-        name: cyclone.CwaTyphoonName || cyclone.TyphoonName,
+        name: name,
         lat: Number(latestFix.CoordinateLatitude),
         lon: Number(latestFix.CoordinateLongitude),
         officialPressure: (latestFix.Pressure || "1000") + " hPa"
       });
     }
-    console.log(`📥 成功從氣象署取得 ${activeTyphoons.length} 個活躍颱風的初始資料。`);
+    console.log(`📥 成功從氣象署取得 ${activeTyphoons.length} 個活躍熱帶氣旋的初始資料。`);
   } catch (e) {
     console.log("❌ 中央氣象署 XML 資料解析異常:", e.message);
   }
