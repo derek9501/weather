@@ -147,9 +147,10 @@ async function fetchAllActiveTyphoons() {
     const parser = new XMLParser({ ignoreAttributes: false });
     const jsonObj = parser.parse(res.data);
     
-    // 正確讀取 dataset.records.TropicalCyclone
+    // 多重相容提取路徑：確保能打中 XML 中的 TropicalCyclone
     const records = jsonObj?.dataset?.records || jsonObj?.records;
-    let cyclones = records?.TropicalCyclone;
+    const tropicalCyclones = records?.TropicalCyclones || records;
+    let cyclones = tropicalCyclones?.TropicalCyclone;
 
     if (!cyclones) {
       console.log("ℹ️ 中央氣象署 API 回傳：當前無熱帶氣旋資料。");
@@ -163,7 +164,7 @@ async function fetchAllActiveTyphoons() {
       if (!fixList) continue;
       const latestFix = Array.isArray(fixList) ? fixList[fixList.length - 1] : fixList;
 
-      // 判斷名稱優先順序：颱風中文名 > 颱風英文名 > 熱帶低壓TD編號 > 未命名
+      // 名稱選擇：颱風名 > 熱帶低壓TD編號 > 未命名
       const name = cyclone.CwaTyphoonName || cyclone.TyphoonName || (cyclone.CwaTdNo ? `熱帶低壓TD${cyclone.CwaTdNo}` : "未命名熱帶氣旋");
 
       activeTyphoons.push({
