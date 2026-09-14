@@ -2,16 +2,23 @@
   "step": 0,
   "typhoonMemory": {
     "熱帶低壓TD28": {
-      "lat": 14.25,
-      "lon": 152.75
+      "lat": 14.5,
+      "lon": 153
     }
   },
   "currentStatus": {
     "hasTyphoon": "YES",
     "count": 1,
-    "updatedAt": "2026/9/14 下午9:17:38",
+    "updatedAt": "2026/9/14 下午9:21:27",
     "typhoons": [
-      "熱帶低壓TD28"
+      {
+        "name": "熱帶低壓TD28",
+        "estLat": 14.5,
+        "estLon": 153,
+        "pressure": "1005 hPa",
+        "wind": "1.51 m/s",
+        "officialPos": "13.5N, 152E (1002 hPa)"
+      }
     ]
   },
   "radar5x5": {},
@@ -160,25 +167,5 @@
       "rain": 0,
       "updatedAt": "2026/9/14 下午8:52:21"
     }
-  },
-  "history": [
-    {
-      "time": "2026/9/14 下午9:11:17",
-      "name": "熱帶低壓TD28",
-      "estLat": 14,
-      "estLon": 152.5,
-      "pressure": "1005 hPa",
-      "wind": "1.51 m/s",
-      "officialPos": "13.5N, 152E (1002 hPa)"
-    },
-    {
-      "time": "2026/9/14 下午9:17:38",
-      "name": "熱帶低壓TD28",
-      "estLat": 14.25,
-      "estLon": 152.75,
-      "pressure": "1005 hPa",
-      "wind": "1.51 m/s",
-      "officialPos": "13.5N, 152E (1002 hPa)"
-    }
-  ]
+  }
 }
