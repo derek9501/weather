@@ -10,6 +10,151 @@
     "message": "🏡 目前洋面安全，雷達全天候留守台灣本島大地圖。"
   },
   "radar5x5": {},
-  "taiwanGrid": {},
+  "taiwanGrid": {
+    "26_119": {
+      "temp": 19.92,
+      "pressure": 1017,
+      "weather": "陰，多雲",
+      "windSpeed": 1.27,
+      "windDeg": 93,
+      "rain": 0,
+      "updatedAt": "2026/9/14 下午8:52:21"
+    },
+    "26_119.5": {
+      "temp": 26.01,
+      "pressure": 1016,
+      "weather": "陰，多雲",
+      "windSpeed": 7,
+      "windDeg": 40,
+      "rain": 0,
+      "updatedAt": "2026/9/14 下午8:52:21"
+    },
+    "26_120": {
+      "temp": 27.02,
+      "pressure": 1016,
+      "weather": "陰，多雲",
+      "windSpeed": 10.67,
+      "windDeg": 45,
+      "rain": 0,
+      "updatedAt": "2026/9/14 下午8:52:21"
+    },
+    "26_120.5": {
+      "temp": 26.73,
+      "pressure": 1015,
+      "weather": "多雲",
+      "windSpeed": 11.15,
+      "windDeg": 50,
+      "rain": 0,
+      "updatedAt": "2026/9/14 下午8:52:21"
+    },
+    "26_121": {
+      "temp": 27.03,
+      "pressure": 1015,
+      "weather": "晴",
+      "windSpeed": 10.71,
+      "windDeg": 47,
+      "rain": 0,
+      "updatedAt": "2026/9/14 下午8:52:21"
+    },
+    "26_121.5": {
+      "temp": 27.58,
+      "pressure": 1015,
+      "weather": "晴",
+      "windSpeed": 10.22,
+      "windDeg": 48,
+      "rain": 0,
+      "updatedAt": "2026/9/14 下午8:52:21"
+    },
+    "26_122": {
+      "temp": 27.71,
+      "pressure": 1015,
+      "weather": "晴",
+      "windSpeed": 9.98,
+      "windDeg": 48,
+      "rain": 0,
+      "updatedAt": "2026/9/14 下午8:52:21"
+    },
+    "26_122.5": {
+      "temp": 27.45,
+      "pressure": 1014,
+      "weather": "晴，少雲",
+      "windSpeed": 10.11,
+      "windDeg": 44,
+      "rain": 0,
+      "updatedAt": "2026/9/14 下午8:52:21"
+    },
+    "26_123": {
+      "temp": 27.39,
+      "pressure": 1014,
+      "weather": "多雲",
+      "windSpeed": 10.58,
+      "windDeg": 39,
+      "rain": 0,
+      "updatedAt": "2026/9/14 下午8:52:21"
+    },
+    "25.5_119": {
+      "temp": 23.06,
+      "pressure": 1016,
+      "weather": "陰，多雲",
+      "windSpeed": 1.99,
+      "windDeg": 1,
+      "rain": 0,
+      "updatedAt": "2026/9/14 下午8:52:21"
+    },
+    "25.5_119.5": {
+      "temp": 26.87,
+      "pressure": 1015,
+      "weather": "陰，多雲",
+      "windSpeed": 10.25,
+      "windDeg": 37,
+      "rain": 0,
+      "updatedAt": "2026/9/14 下午8:52:21"
+    },
+    "25.5_120": {
+      "temp": 26.85,
+      "pressure": 1015,
+      "weather": "晴",
+      "windSpeed": 11.82,
+      "windDeg": 45,
+      "rain": 0,
+      "updatedAt": "2026/9/14 下午8:52:21"
+    },
+    "25.5_120.5": {
+      "temp": 26.92,
+      "pressure": 1015,
+      "weather": "晴",
+      "windSpeed": 11.92,
+      "windDeg": 49,
+      "rain": 0,
+      "updatedAt": "2026/9/14 下午8:52:21"
+    },
+    "25.5_121": {
+      "temp": 27.69,
+      "pressure": 1015,
+      "weather": "晴",
+      "windSpeed": 11.15,
+      "windDeg": 53,
+      "rain": 0,
+      "updatedAt": "2026/9/14 下午8:52:21"
+    },
+    "25.5_121.5": {
+      "temp": 29.02,
+      "pressure": 1015,
+      "weather": "晴",
+      "windSpeed": 10.14,
+      "windDeg": 56,
+      "rain": 0,
+      "updatedAt": "2026/9/14 下午8:52:21"
+    },
+    "25.5_122": {
+      "temp": 29.22,
+      "pressure": 1014,
+      "weather": "晴",
+      "windSpeed": 9.43,
+      "windDeg": 49,
+      "rain": 0,
+      "updatedAt": "2026/9/14 下午8:52:21"
+    }
+  },
   "history": []
 }
