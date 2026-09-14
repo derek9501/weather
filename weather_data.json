@@ -1,10 +1,18 @@
 {
   "step": 0,
-  "typhoonMemory": {},
+  "typhoonMemory": {
+    "熱帶低壓TD28": {
+      "lat": 14,
+      "lon": 152.5
+    }
+  },
   "currentStatus": {
-    "hasTyphoon": "NO",
-    "updatedAt": "2026/9/14 下午9:09:40",
-    "message": "🌊 當前洋面無活躍颱風或熱帶性低氣壓，系統進入休眠待命。"
+    "hasTyphoon": "YES",
+    "count": 1,
+    "updatedAt": "2026/9/14 下午9:11:17",
+    "typhoons": [
+      "熱帶低壓TD28"
+    ]
   },
   "radar5x5": {},
   "taiwanGrid": {
@@ -153,5 +161,15 @@
       "updatedAt": "2026/9/14 下午8:52:21"
     }
   },
-  "history": []
+  "history": [
+    {
+      "time": "2026/9/14 下午9:11:17",
+      "name": "熱帶低壓TD28",
+      "estLat": 14,
+      "estLon": 152.5,
+      "pressure": "1005 hPa",
+      "wind": "1.51 m/s",
+      "officialPos": "13.5N, 152E (1002 hPa)"
+    }
+  ]
 }
