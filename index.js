@@ -10,7 +10,7 @@ const CWA_TYPHOON_TRACK_API = "https://opendata.cwa.gov.tw/api/v1/rest/datastore
 const DATA_FILE = path.join(__dirname, 'weather_data.json');
 const HISTORY_DIR = path.join(__dirname, 'history');
 
-// 確保 history 資料夾存在
+// 確保外面的 history/ 資料夾存在
 if (!fs.existsSync(HISTORY_DIR)) {
   fs.mkdirSync(HISTORY_DIR, { recursive: true });
 }
@@ -26,16 +26,18 @@ function loadDatabase() {
   }
   return {
     typhoonMemory: {},
-    currentStatus: {},
-    history: []
+    currentStatus: {}
   };
 }
 
 function saveDatabase(db) {
-  // 1. 更新根目錄的最新狀態檔
+  // 移除內部 history 陣列，確保格式乾淨
+  delete db.history;
+
+  // 1. 更新根目錄的 weather_data.json
   fs.writeFileSync(DATA_FILE, JSON.stringify(db, null, 2), 'utf8');
 
-  // 2. 格式化檔名格式：YYYY-MM-DD-HH-mm-ss.json (以台灣時間 UTC+8 為準)
+  // 2. 格式化檔名格式：YYYY-MM-DD-HH-mm-ss.json (UTC+8 台灣時間)
   const now = new Date();
   const tzOffset = 8 * 60; // UTC+8
   const localTime = new Date(now.getTime() + (tzOffset + now.getTimezoneOffset()) * 60000);
@@ -50,9 +52,9 @@ function saveDatabase(db) {
   const fileName = `${year}-${month}-${day}-${hours}-${minutes}-${seconds}.json`;
   const historyFilePath = path.join(HISTORY_DIR, fileName);
 
-  // 3. 寫入 history/YYYY-MM-DD-HH-mm-ss.json
+  // 3. 寫入外面的 history/ 資料夾
   fs.writeFileSync(historyFilePath, JSON.stringify(db, null, 2), 'utf8');
-  console.log(`📁 歷史紀錄已成功存檔至：history/${fileName}`);
+  console.log(`📁 歷史紀錄已成功存檔至外層資料夾：history/${fileName}`);
 }
 
 // ==================== 核心主程式 ====================
@@ -82,6 +84,8 @@ async function main() {
 
     // 3. 逐一掃描所有活躍熱帶氣旋並進行近心點定位
     console.log(`\n🚨 [步驟 3/4] 偵測到 ${activeTyphoons.length} 個活躍熱帶氣旋！開始進行 OpenWeather 5x5 精確定位...`);
+
+    let typhoonResults = [];
 
     for (const typhoon of activeTyphoons) {
       console.log(`\n🔍 正在分析：【${typhoon.name}】...`);
@@ -118,8 +122,8 @@ async function main() {
         const estLon = Number(((gridCenterLon + eyeGrid.lon) / 2).toFixed(2));
 
         db.typhoonMemory[typhoon.name] = { lat: estLat, lon: estLon };
-        db.history.push({
-          time: currentTimeString,
+        
+        typhoonResults.push({
           name: typhoon.name,
           estLat, 
           estLon,
@@ -137,11 +141,11 @@ async function main() {
       hasTyphoon: "YES",
       count: activeTyphoons.length,
       updatedAt: currentTimeString,
-      typhoons: activeTyphoons.map(t => t.name)
+      typhoons: typhoonResults
     };
 
     saveDatabase(db);
-    console.log("\n✅ [步驟 4/4] 所有熱帶氣旋資料已成功寫入 history 資料夾！");
+    console.log("\n✅ [步驟 4/4] 所有熱帶氣旋資料已成功寫入外層 history 資料夾！");
 
   } catch (err) {
     console.error("❌ 執行過程中發生未預期錯誤:", err);
