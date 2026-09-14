@@ -1,0 +1,15 @@
+{
+  "step": 0,
+  "typhoonMemory": {},
+  "currentStatus": {
+    "hasTyphoon": "NO",
+    "target": "無",
+    "lat": "",
+    "lon": "",
+    "pressure": "",
+    "message": "🏡 目前洋面安全，雷達全天候留守台灣本島大地圖。"
+  },
+  "radar5x5": {},
+  "taiwanGrid": {},
+  "history": []
+}
