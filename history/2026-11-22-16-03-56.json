@@ -1,0 +1,281 @@
+{
+  "step": 0,
+  "typhoonMemory": {
+    "熱帶低壓TD28": {
+      "lat": 17.25,
+      "lon": 150.5
+    },
+    "杜鵑": {
+      "lat": 24.25,
+      "lon": 139.25
+    },
+    "熱帶低壓TD29": {
+      "lat": 14,
+      "lon": 138.75
+    },
+    "舒力基": {
+      "lat": 13.75,
+      "lon": 139.5
+    },
+    "熱帶低壓TD30": {
+      "lat": 17,
+      "lon": 150.5
+    },
+    "彩雲": {
+      "lat": 26,
+      "lon": 145.5
+    },
+    "熱帶低壓TD31": {
+      "lat": 10.25,
+      "lon": 168
+    },
+    "諾洛": {
+      "lat": 21.25,
+      "lon": 179
+    },
+    "小熊": {
+      "lat": 9.75,
+      "lon": 170
+    },
+    "熱帶低壓TD33": {
+      "lat": 11.25,
+      "lon": 159.5
+    },
+    "薔琵": {
+      "lat": 10.5,
+      "lon": 150
+    },
+    "煙花": {
+      "lat": 5.75,
+      "lon": 156.25
+    },
+    "熱帶低壓TD35": {
+      "lat": 15.5,
+      "lon": 149.5
+    },
+    "查帕卡": {
+      "lat": 20.25,
+      "lon": 137
+    }
+  },
+  "currentStatus": {
+    "hasTyphoon": "YES",
+    "count": 1,
+    "updatedAt": "2026/11/11 下午2:00:00",
+    "typhoons": [
+      {
+        "time": "2026/11/11 下午2:00:00",
+        "name": "查帕卡",
+        "estLat": 20.25,
+        "estLon": 137,
+        "pressure": "1019 hPa",
+        "wind": "9.8 m/s",
+        "officialPos": "28.9N, 149.9E (975 hPa)"
+      }
+    ]
+  },
+  "radar5x5": {
+    "查帕卡": {
+      "21.5_135.5": {
+        "temp": 25.54,
+        "pressure": 1021,
+        "weather": "陰，多雲",
+        "windSpeed": 9.99,
+        "windDeg": 40,
+        "rain": 0
+      },
+      "21.5_136": {
+        "temp": 25.46,
+        "pressure": 1021,
+        "weather": "陰，多雲",
+        "windSpeed": 9.93,
+        "windDeg": 39,
+        "rain": 0
+      },
+      "21.5_136.5": {
+        "temp": 25.38,
+        "pressure": 1021,
+        "weather": "陰，多雲",
+        "windSpeed": 10.14,
+        "windDeg": 40,
+        "rain": 0
+      },
+      "21.5_137": {
+        "temp": 25.38,
+        "pressure": 1021,
+        "weather": "陰，多雲",
+        "windSpeed": 10.05,
+        "windDeg": 41,
+        "rain": 0
+      },
+      "21.5_137.5": {
+        "temp": 25.39,
+        "pressure": 1021,
+        "weather": "陰，多雲",
+        "windSpeed": 10.08,
+        "windDeg": 42,
+        "rain": 0
+      },
+      "21_135.5": {
+        "temp": 25.94,
+        "pressure": 1020,
+        "weather": "多雲",
+        "windSpeed": 10.85,
+        "windDeg": 42,
+        "rain": 0
+      },
+      "21_136": {
+        "temp": 25.88,
+        "pressure": 1020,
+        "weather": "陰，多雲",
+        "windSpeed": 10.49,
+        "windDeg": 43,
+        "rain": 0
+      },
+      "21_136.5": {
+        "temp": 25.77,
+        "pressure": 1020,
+        "weather": "陰，多雲",
+        "windSpeed": 10.34,
+        "windDeg": 44,
+        "rain": 0
+      },
+      "21_137": {
+        "temp": 25.83,
+        "pressure": 1020,
+        "weather": "陰，多雲",
+        "windSpeed": 10.27,
+        "windDeg": 44,
+        "rain": 0
+      },
+      "21_137.5": {
+        "temp": 26.06,
+        "pressure": 1020,
+        "weather": "陰，多雲",
+        "windSpeed": 10.37,
+        "windDeg": 46,
+        "rain": 0
+      },
+      "20.5_135.5": {
+        "temp": 26.15,
+        "pressure": 1020,
+        "weather": "陰，多雲",
+        "windSpeed": 10.62,
+        "windDeg": 47,
+        "rain": 0
+      },
+      "20.5_136": {
+        "temp": 26.24,
+        "pressure": 1020,
+        "weather": "陰，多雲",
+        "windSpeed": 10.78,
+        "windDeg": 45,
+        "rain": 0
+      },
+      "20.5_136.5": {
+        "temp": 26.35,
+        "pressure": 1020,
+        "weather": "陰，多雲",
+        "windSpeed": 10.95,
+        "windDeg": 45,
+        "rain": 0
+      },
+      "20.5_137": {
+        "temp": 26.53,
+        "pressure": 1020,
+        "weather": "陰，多雲",
+        "windSpeed": 10.88,
+        "windDeg": 45,
+        "rain": 0
+      },
+      "20.5_137.5": {
+        "temp": 26.58,
+        "pressure": 1019,
+        "weather": "多雲",
+        "windSpeed": 10.64,
+        "windDeg": 45,
+        "rain": 0
+      },
+      "20_135.5": {
+        "temp": 26.74,
+        "pressure": 1019,
+        "weather": "多雲",
+        "windSpeed": 11.23,
+        "windDeg": 48,
+        "rain": 0
+      },
+      "20_136": {
+        "temp": 26.83,
+        "pressure": 1019,
+        "weather": "多雲",
+        "windSpeed": 11.3,
+        "windDeg": 47,
+        "rain": 0
+      },
+      "20_136.5": {
+        "temp": 26.67,
+        "pressure": 1019,
+        "weather": "多雲",
+        "windSpeed": 11.1,
+        "windDeg": 45,
+        "rain": 0
+      },
+      "20_137": {
+        "temp": 26.83,
+        "pressure": 1019,
+        "weather": "陰，多雲",
+        "windSpeed": 10.63,
+        "windDeg": 46,
+        "rain": 0
+      },
+      "20_137.5": {
+        "temp": 27.27,
+        "pressure": 1019,
+        "weather": "陰，多雲",
+        "windSpeed": 9.8,
+        "windDeg": 46,
+        "rain": 0
+      },
+      "19.5_135.5": {
+        "temp": 26.9,
+        "pressure": 1019,
+        "weather": "晴，少雲",
+        "windSpeed": 11.6,
+        "windDeg": 45,
+        "rain": 0
+      },
+      "19.5_136": {
+        "temp": 26.96,
+        "pressure": 1019,
+        "weather": "多雲",
+        "windSpeed": 11.31,
+        "windDeg": 45,
+        "rain": 0
+      },
+      "19.5_136.5": {
+        "temp": 27.12,
+        "pressure": 1018,
+        "weather": "小雨",
+        "windSpeed": 10.85,
+        "windDeg": 46,
+        "rain": 0.12
+      },
+      "19.5_137": {
+        "temp": 27.38,
+        "pressure": 1018,
+        "weather": "陰，多雲",
+        "windSpeed": 10.1,
+        "windDeg": 45,
+        "rain": 0
+      },
+      "19.5_137.5": {
+        "temp": 27.17,
+        "pressure": 1018,
+        "weather": "小雨",
+        "windSpeed": 10.06,
+        "windDeg": 50,
+        "rain": 0.53
+      }
+    }
+  }
+}
